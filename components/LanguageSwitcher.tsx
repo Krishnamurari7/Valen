@@ -2,7 +2,7 @@
 
 import { useLocale } from '@/lib/locale'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useLayoutEffect, useRef } from 'react'
 
 const languages = [
   { code: 'en' as const, name: 'English', flag: '🇬🇧' },
@@ -13,6 +13,16 @@ export default function LanguageSwitcher() {
   const [locale, setLocale] = useLocale()
   const [isOpen, setIsOpen] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
+
+  // Ensure dropdown is closed on mount/refresh - use useLayoutEffect for immediate effect
+  useLayoutEffect(() => {
+    setIsOpen(false)
+  }, [])
+
+  // Also ensure it's closed after hydration
+  useEffect(() => {
+    setIsOpen(false)
+  }, [])
 
   // Close dropdown when clicking outside
   useEffect(() => {

@@ -1,14 +1,45 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect, useLayoutEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslations } from '@/lib/i18n'
 import LanguageSwitcher from './LanguageSwitcher'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const t = useTranslations('common')
+  const navRef = useRef<HTMLElement>(null)
+
+  // Ensure mobile menu is closed on mount/refresh - use useLayoutEffect for immediate effect
+  useLayoutEffect(() => {
+    setIsOpen(false)
+    setMounted(true)
+  }, [])
+
+  // Also ensure it's closed after hydration
+  useEffect(() => {
+    setIsOpen(false)
+  }, [])
+
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      if (navRef.current && !navRef.current.contains(event.target as Node)) {
+        setIsOpen(false)
+      }
+    }
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+      document.addEventListener('touchstart', handleClickOutside)
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside)
+        document.removeEventListener('touchstart', handleClickOutside)
+      }
+    }
+  }, [isOpen])
 
   const navLinks = [
     { href: '/', label: t('home'), icon: '🏠' },
@@ -18,7 +49,7 @@ export default function Navbar() {
   ]
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl border-b border-pink-100/50 shadow-sm relative">
+    <nav ref={navRef} className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl border-b border-pink-100/50 shadow-sm relative">
       {/* Subtle gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-rose-50/30 via-transparent to-pink-50/30 pointer-events-none"></div>
       
@@ -115,7 +146,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       <AnimatePresence>
-        {isOpen && (
+        {mounted && isOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}

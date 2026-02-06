@@ -10,6 +10,18 @@ import { useTranslations } from '@/lib/i18n'
 export default function CompatibilityForm() {
   const t = useTranslations('compatibility')
   const [name1, setName1] = useState('')
+  
+  // Ensure translations are loaded
+  if (!t || typeof t !== 'function') {
+    return (
+      <div className="glass-card p-6 sm:p-8 md:p-10 flex items-center justify-center min-h-[400px]">
+        <div className="text-center">
+          <div className="text-4xl mb-4 animate-spin">💕</div>
+          <p className="text-gray-600">Loading form...</p>
+        </div>
+      </div>
+    )
+  }
   const [name2, setName2] = useState('')
   const [dob1, setDob1] = useState('')
   const [dob2, setDob2] = useState('')

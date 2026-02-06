@@ -11,6 +11,18 @@ import { useTranslations } from '@/lib/i18n'
 export default function ProposalForm() {
   const t = useTranslations('propose')
   
+  // Ensure translations are loaded
+  if (!t || typeof t !== 'function') {
+    return (
+      <div className="glass-card p-6 sm:p-8 md:p-10 space-y-6 sm:space-y-8 max-w-2xl mx-auto">
+        <div className="text-center">
+          <div className="text-4xl mb-4 animate-spin">💍</div>
+          <p className="text-gray-600">Loading form...</p>
+        </div>
+      </div>
+    )
+  }
+  
   const themes: { value: Theme; label: string; icon: string; description: string }[] = [
     { value: 'romantic', label: t('themes.romantic.label'), icon: '🌹', description: t('themes.romantic.description') },
     { value: 'cute', label: t('themes.cute.label'), icon: '🦋', description: t('themes.cute.description') },

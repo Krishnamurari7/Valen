@@ -14,6 +14,18 @@ export default function LoveMessageForm() {
   const [generatedMessage, setGeneratedMessage] = useState('')
   const [isGenerating, setIsGenerating] = useState(false)
 
+  // Ensure translations are loaded
+  if (!t || typeof t !== 'function') {
+    return (
+      <div className="glass-card p-6 sm:p-8 md:p-10 flex items-center justify-center min-h-[400px]">
+        <div className="text-center">
+          <div className="text-4xl mb-4 animate-spin">💌</div>
+          <p className="text-gray-600">Loading form...</p>
+        </div>
+      </div>
+    )
+  }
+
   const moods: { value: Mood; label: string; icon: string; color: string }[] = [
     { value: 'romantic', label: t('moods.romantic'), icon: '💖', color: 'from-rose-500 to-pink-500' },
     { value: 'cute', label: t('moods.cute'), icon: '🥰', color: 'from-pink-400 to-fuchsia-400' },
