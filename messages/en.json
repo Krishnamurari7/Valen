@@ -1,0 +1,211 @@
+{
+  "common": {
+    "appName": "Valentine",
+    "appFullName": "Valentine All-in-One",
+    "home": "Home",
+    "loveMessages": "Love Messages",
+    "propose": "Propose",
+    "compatibility": "Compatibility",
+    "loading": "Loading...",
+    "error": "Error",
+    "tryAgain": "Try Again",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "share": "Share",
+    "download": "Download",
+    "generate": "Generate",
+    "create": "Create",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "yes": "Yes",
+    "no": "No",
+    "optional": "optional"
+  },
+  "home": {
+    "title": "Valentine All-in-One",
+    "subtitle": "Express your love with personalized messages, create stunning proposal pages, and discover your compatibility. Make this Valentine's Day unforgettable! 💕",
+    "startNow": "Start Now 💌",
+    "checkCompatibility": "Check Compatibility 💕",
+    "featuresTitle": "Everything You Need for Valentine's Day 💖",
+    "feature1": {
+      "title": "Love Message Generator",
+      "description": "Create personalized romantic messages with just a few clicks. Choose from romantic, cute, funny, or emotional moods."
+    },
+    "feature2": {
+      "title": "Proposal Page Creator",
+      "description": "Create a beautiful, shareable proposal page with a unique URL. Watch them say YES with confetti!"
+    },
+    "feature3": {
+      "title": "Love Compatibility Test",
+      "description": "Calculate your compatibility percentage with your special someone. Download and share the results!"
+    },
+    "stats": {
+      "messageTemplates": "Message Templates",
+      "proposalsCreated": "Proposals Created",
+      "compatibilityTests": "Compatibility Tests",
+      "heartsConnected": "Hearts Connected"
+    },
+    "ctaTitle": "Ready to Spread the Love?",
+    "ctaDescription": "Don't wait until the last minute. Create something special today!",
+    "ctaButton": "Create Your Proposal 💍",
+    "tryItNow": "Try it now"
+  },
+  "loveMessage": {
+    "title": "Love Message Generator",
+    "description": "Create the perfect romantic message in seconds. Just enter your names, pick a mood, and let the magic happen! ✨",
+    "yourName": "Your Name",
+    "partnerName": "Partner's Name",
+    "selectMood": "Select Mood",
+    "moods": {
+      "romantic": "Romantic",
+      "cute": "Cute",
+      "funny": "Funny",
+      "emotional": "Emotional"
+    },
+    "generateButton": "Generate Love Message 💌",
+    "generating": "Generating...",
+    "generateAnother": "Generate Another",
+    "copyMessage": "Copy Message",
+    "shareTitle": "My Valentine Message",
+    "tips": {
+      "title": "💡 Pro Tips",
+      "tip1": {
+        "title": "Be Sincere",
+        "description": "The best messages come from the heart"
+      },
+      "tip2": {
+        "title": "Add Personal Touch",
+        "description": "Customize it with your own words"
+      },
+      "tip3": {
+        "title": "Share Easily",
+        "description": "Send via WhatsApp or text directly"
+      }
+    }
+  },
+  "compatibility": {
+    "title": "Love Compatibility Calculator",
+    "description": "Discover your compatibility percentage! Enter your names and optional birthdates for a fun calculation. ✨",
+    "firstName": "First Name",
+    "secondName": "Second Name",
+    "dob": "Date of Birth (optional)",
+    "calculateButton": "Calculate Compatibility 💕",
+    "calculating": "Calculating...",
+    "downloadCard": "Download Result Card",
+    "calculateAgain": "Calculate again",
+    "shareTitle": "Our Compatibility Result",
+    "howItWorks": {
+      "title": "How Does It Work?",
+      "description": "Our algorithm combines your names (and optionally birthdates) to generate a unique compatibility score. The same names will always get the same result - try it with friends!"
+    },
+    "shareResults": {
+      "title": "Share Your Results",
+      "description": "Download your compatibility card as an image and share it on Instagram, WhatsApp, or anywhere else. Perfect for couple posts! 📸"
+    },
+    "levelsTitle": "Compatibility Levels 💖",
+    "levels": {
+      "perfect": "Perfect Match",
+      "great": "Great Match",
+      "good": "Good Match",
+      "mixed": "Mixed",
+      "low": "Low"
+    },
+    "disclaimer": "This compatibility calculator is for entertainment purposes only. Real relationships are built on communication, trust, and mutual respect, not algorithms! 💕"
+  },
+  "propose": {
+    "title": "Proposal Page Creator",
+    "description": "Create a beautiful, shareable proposal page with a unique URL. Make the moment unforgettable! 💕",
+    "yourName": "Your Name",
+    "partnerName": "Partner's Name",
+    "customMessage": "Custom Message (optional)",
+    "customMessagePlaceholder": "Write something special...",
+    "chooseTheme": "Choose Theme",
+    "themes": {
+      "romantic": {
+        "label": "Romantic",
+        "description": "Classic red roses & hearts"
+      },
+      "cute": {
+        "label": "Cute",
+        "description": "Soft pinks & butterflies"
+      },
+      "funny": {
+        "label": "Funny",
+        "description": "Playful & fun vibes"
+      }
+    },
+    "uploadPhoto": "Upload Photo (optional)",
+    "uploadHint": "Click to upload (max 5MB)",
+    "createButton": "Create Proposal Page 💍",
+    "creating": "Creating...",
+    "created": {
+      "title": "Proposal Created!",
+      "description": "Share this link with {partnerName} to pop the question! 💕",
+      "linkLabel": "Your proposal link:",
+      "copyLink": "Copy Link",
+      "preview": "Preview",
+      "createAnother": "Create another proposal"
+    },
+    "howItWorks": {
+      "title": "How It Works ✨",
+      "step1": {
+        "title": "Fill the Form",
+        "description": "Enter your names and a sweet message"
+      },
+      "step2": {
+        "title": "Choose Theme",
+        "description": "Pick a style that matches your love"
+      },
+      "step3": {
+        "title": "Add Photo",
+        "description": "Upload a special picture (optional)"
+      },
+      "step4": {
+        "title": "Share Link",
+        "description": "Send the unique URL to your love!"
+      }
+    },
+    "funFeature": {
+      "title": "Fun Feature Alert!",
+      "description": "When they click \"No\"... the button runs away! 🏃‍♂️ Because let's be honest, \"No\" was never really an option! 💕"
+    },
+    "errors": {
+      "imageSize": "Image must be less than 5MB",
+      "imageType": "Only JPG and PNG images are allowed",
+      "createFailed": "Failed to create proposal. Please try again."
+    }
+  },
+  "proposalPage": {
+    "loading": "Loading...",
+    "notFound": {
+      "title": "Proposal Not Found",
+      "description": "This proposal page doesn't exist or has been removed.",
+      "goHome": "Go Home 🏠"
+    },
+    "question": "{partnerName}, will you be my Valentine? 💝",
+    "from": "From:",
+    "yesButton": "YES! ❤️",
+    "noButton": "No 😅",
+    "dodgeMessages": {
+      "shy": "Hey! The button is shy! 😄",
+      "comeOn": "Come on, you know you want to say YES! 💕",
+      "almost": "Almost there... just click YES already! 😂",
+      "okay": "Okay, okay... you can click No now if you really want to 😢"
+    },
+    "success": {
+      "title": "They Said YES!",
+      "description": "{yourName} and {partnerName} are now Valentines! 💖",
+      "share": "Share this beautiful moment!"
+    }
+  },
+  "footer": {
+    "description": "Express your love with personalized messages, proposals, and compatibility tests.",
+    "quickLinks": "Quick Links",
+    "loveMessages": "Love Messages",
+    "createProposal": "Create Proposal",
+    "compatibilityTest": "Compatibility Test",
+    "shareLove": "Share the Love",
+    "madeWith": "Made with 💖 for Valentine's Day 2026",
+    "copyright": "© 2026 Valentine All-in-One. Spread love, not hate. 💕"
+  }
+}
