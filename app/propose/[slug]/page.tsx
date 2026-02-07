@@ -103,11 +103,16 @@ export default function ProposalPage({ params }: { params: Promise<{ slug: strin
               // Update local state with new count
               setProposal(prev => prev ? { ...prev, view_count: currentViewCount + 1 } : null)
             } else {
-              console.error('Error updating view count:', updateError)
+              console.error('Error updating view count:', {
+                message: updateError.message,
+                details: updateError.details,
+                hint: updateError.hint,
+                code: updateError.code
+              })
               // Non-critical error, continue
             }
           } catch (err) {
-            console.error('Error updating view count:', err)
+            console.error('Error updating view count:', err instanceof Error ? err.message : String(err))
             // Non-critical error, continue
           }
         }
