@@ -7,6 +7,7 @@ import { useTranslations } from '@/lib/i18n'
 export default function Footer() {
   const t = useTranslations('footer')
   const tCommon = useTranslations('common')
+  const tPromotion = useTranslations('promotion')
   return (
     <footer className="bg-white/70 backdrop-blur-xl border-t border-pink-100/50 mt-auto relative overflow-hidden">
       {/* Enhanced decorative gradient */}
@@ -128,9 +129,9 @@ export default function Footer() {
 
           {/* Web Development Promotion */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <h3 className="font-bold text-gray-800 mb-3 sm:mb-4 text-base sm:text-lg">{t('promotion.footerTitle')}</h3>
+            <h3 className="font-bold text-gray-800 mb-3 sm:mb-4 text-base sm:text-lg">{tPromotion('footerTitle')}</h3>
             <p className="text-gray-700 text-sm sm:text-base mb-3 sm:mb-4 leading-relaxed">
-              {t('promotion.footerDescription')}
+              {tPromotion('footerDescription')}
             </p>
             <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
               <motion.a
