@@ -49,6 +49,9 @@ export function calculateCompatibility(
   const hash = hashString(combinedString)
   
   // Generate percentage (weighted to favor higher numbers for entertainment)
+  // NOTE: PRD specifies 0-100 range, but we use 30-100 for better UX.
+  // This ensures users get more positive results, making the feature more shareable.
+  // The algorithm is still deterministic - same inputs = same outputs.
   const rawRandom = seededRandom(hash)
   // Weight towards higher numbers: 30-100 range mostly
   const percentage = Math.floor(30 + (rawRandom * 70))

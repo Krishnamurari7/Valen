@@ -95,10 +95,10 @@ export default function CompatibilityForm() {
         className="glass-card p-6 sm:p-8 md:p-10 space-y-6 sm:space-y-8"
       >
         {/* Name Inputs */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
           <div>
-            <label className="block text-sm sm:text-base font-semibold text-gray-800 mb-2 sm:mb-3 flex items-center gap-2">
-              <span>💫</span>
+            <label className="block text-sm sm:text-base font-semibold text-gray-800 mb-2 sm:mb-3 flex items-center gap-1.5 sm:gap-2">
+              <span className="text-base sm:text-lg">💫</span>
               <span>{t('firstName')}</span>
             </label>
             <input
@@ -107,12 +107,12 @@ export default function CompatibilityForm() {
               onChange={(e) => setName1(e.target.value)}
               placeholder={t('firstName')}
               maxLength={30}
-              className="input-romantic"
+              className="input-romantic text-base sm:text-lg"
             />
           </div>
           <div>
-            <label className="block text-sm sm:text-base font-semibold text-gray-800 mb-2 sm:mb-3 flex items-center gap-2">
-              <span>💝</span>
+            <label className="block text-sm sm:text-base font-semibold text-gray-800 mb-2 sm:mb-3 flex items-center gap-1.5 sm:gap-2">
+              <span className="text-base sm:text-lg">💝</span>
               <span>{t('secondName')}</span>
             </label>
             <input
@@ -121,13 +121,13 @@ export default function CompatibilityForm() {
               onChange={(e) => setName2(e.target.value)}
               placeholder={t('secondName')}
               maxLength={30}
-              className="input-romantic"
+              className="input-romantic text-base sm:text-lg"
             />
           </div>
         </div>
 
         {/* Optional DOB Inputs */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
           <div>
             <label className="block text-sm sm:text-base font-semibold text-gray-800 mb-2 sm:mb-3 flex items-center gap-2">
               <span>🎂</span>
@@ -160,7 +160,7 @@ export default function CompatibilityForm() {
           whileTap={{ scale: 0.98 }}
           onClick={handleCalculate}
           disabled={!name1.trim() || !name2.trim() || isCalculating}
-          className="btn-primary w-full text-base sm:text-lg md:text-xl py-3 sm:py-4 md:py-5 font-semibold"
+          className="btn-primary w-full text-sm sm:text-base md:text-lg lg:text-xl py-2.5 sm:py-3 md:py-4 lg:py-5 font-semibold min-h-[44px] touch-manipulation"
         >
           {isCalculating ? (
             <span className="flex items-center justify-center gap-3">
@@ -322,12 +322,12 @@ export default function CompatibilityForm() {
             </div>
 
             {/* Action Buttons */}
-            <div className="mt-6 sm:mt-8 space-y-3 sm:space-y-4">
+            <div className="mt-5 sm:mt-6 md:mt-8 space-y-2.5 sm:space-y-3 md:space-y-4">
               <motion.button
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={handleDownloadCard}
-                className="btn-secondary w-full py-3 sm:py-4 text-sm sm:text-base md:text-lg font-semibold flex items-center justify-center gap-2"
+                className="btn-secondary w-full py-2.5 sm:py-3 md:py-4 text-sm sm:text-base md:text-lg font-semibold flex items-center justify-center gap-1.5 sm:gap-2 min-h-[44px] touch-manipulation"
               >
                 <motion.span
                   animate={{ y: [0, -3, 0] }}
@@ -351,7 +351,7 @@ export default function CompatibilityForm() {
                   setDob1('')
                   setDob2('')
                 }}
-                className="w-full text-gray-600 hover:text-rose-600 transition-colors text-sm md:text-base font-medium py-2"
+                className="w-full text-gray-600 hover:text-rose-600 active:text-rose-600 transition-colors text-sm sm:text-base font-medium py-2.5 sm:py-3 min-h-[44px] touch-manipulation"
               >
                 {t('calculateAgain')}
               </button>

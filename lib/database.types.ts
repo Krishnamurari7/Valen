@@ -20,6 +20,7 @@ export type Database = {
           slug: string
           theme: string
           updated_at: string | null
+          view_count: number | null
           your_name: string
         }
         Insert: {
@@ -32,6 +33,7 @@ export type Database = {
           slug: string
           theme?: string
           updated_at?: string | null
+          view_count?: number | null
           your_name: string
         }
         Update: {
@@ -44,6 +46,7 @@ export type Database = {
           slug?: string
           theme?: string
           updated_at?: string | null
+          view_count?: number | null
           your_name?: string
         }
         Relationships: []

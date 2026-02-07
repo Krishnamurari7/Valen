@@ -65,8 +65,12 @@
     "generateButton": "Generate Love Message 💌",
     "generating": "Generating...",
     "generateAnother": "Generate Another",
-    "copyMessage": "Copy Message",
+    "copyMessage": "Copied to clipboard",
     "shareTitle": "My Valentine Message",
+    "keyboardShortcuts": {
+      "generate": "Press Ctrl/Cmd + Enter to generate",
+      "clear": "Press Escape to clear"
+    },
     "tips": {
       "title": "💡 Pro Tips",
       "tip1": {
@@ -172,6 +176,7 @@
     "errors": {
       "imageSize": "Image must be less than 5MB",
       "imageType": "Only JPG and PNG images are allowed",
+      "imageUploadFailed": "Failed to upload image. Please try again.",
       "createFailed": "Failed to create proposal. Please try again."
     }
   },

@@ -16,8 +16,8 @@ export default function FloatingHearts() {
     const emojis = ['❤️', '💕', '💖', '💗', '💝', '🌹', '✨']
     const newHearts: Heart[] = []
     
-    // Reduced count for better performance, but more varied
-    for (let i = 0; i < 12; i++) {
+    // PRD requirement: 15 animated emoji elements
+    for (let i = 0; i < 15; i++) {
       newHearts.push({
         id: i,
         left: Math.random() * 100,

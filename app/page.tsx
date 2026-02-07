@@ -3,9 +3,46 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useTranslations } from '@/lib/i18n'
+import Script from 'next/script'
 
 export default function Home() {
   const t = useTranslations('home')
+  
+  const baseUrl = 'https://dripxthing.in'
+  
+  // Structured data for home page features
+  const homePageStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Valentine All-in-One Features',
+    description: 'Complete Valentine\'s Day toolkit with love message generator, proposal creator, and compatibility calculator',
+    itemListElement: [
+      {
+        '@type': 'SoftwareApplication',
+        position: 1,
+        name: 'Love Message Generator',
+        description: 'Create personalized romantic messages with just a few clicks',
+        url: `${baseUrl}/love-message`,
+        applicationCategory: 'EntertainmentApplication',
+      },
+      {
+        '@type': 'SoftwareApplication',
+        position: 2,
+        name: 'Proposal Page Creator',
+        description: 'Create a beautiful, shareable proposal page with a unique URL',
+        url: `${baseUrl}/propose`,
+        applicationCategory: 'EntertainmentApplication',
+      },
+      {
+        '@type': 'SoftwareApplication',
+        position: 3,
+        name: 'Love Compatibility Calculator',
+        description: 'Calculate your compatibility percentage with your special someone',
+        url: `${baseUrl}/compatibility`,
+        applicationCategory: 'EntertainmentApplication',
+      },
+    ],
+  }
   
   const features = [
     {
@@ -34,9 +71,18 @@ export default function Home() {
     },
   ]
   return (
-    <div className="min-h-screen">
+    <>
+      <Script
+        id="home-page-structured-data"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(homePageStructuredData),
+        }}
+      />
+      <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative py-12 sm:py-16 md:py-24 lg:py-32 px-4 sm:px-6 overflow-hidden">
+      <section className="relative py-8 sm:py-12 md:py-16 lg:py-24 xl:py-32 px-4 sm:px-6 overflow-hidden">
         {/* Sparkle effect */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
           {[...Array(20)].map((_, i) => (
@@ -67,7 +113,7 @@ export default function Home() {
             transition={{ duration: 0.8, ease: 'easeOut' }}
           >
             <motion.span
-              className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl block mb-4 sm:mb-6 md:mb-8 filter drop-shadow-lg"
+              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl block mb-3 sm:mb-4 md:mb-6 lg:mb-8 filter drop-shadow-lg"
               animate={{ 
                 scale: [1, 1.15, 1],
                 rotate: [0, 8, -8, 0]
@@ -82,7 +128,7 @@ export default function Home() {
               💝
             </motion.span>
             
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-bold mb-4 sm:mb-6 md:mb-8 font-[family-name:var(--font-display)] leading-tight px-2">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold mb-3 sm:mb-4 md:mb-6 lg:mb-8 font-[family-name:var(--font-display)] leading-tight px-2">
               <motion.span 
                 className="text-gradient block mb-2"
                 initial={{ opacity: 0, x: -20 }}
@@ -102,7 +148,7 @@ export default function Home() {
             </h1>
             
             <motion.p 
-              className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 mb-6 sm:mb-8 md:mb-10 max-w-3xl mx-auto leading-relaxed font-medium px-2"
+              className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-gray-700 mb-5 sm:mb-6 md:mb-8 lg:mb-10 max-w-3xl mx-auto leading-relaxed font-medium px-2"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
@@ -114,13 +160,13 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 md:gap-5 justify-center px-4"
+              className="flex flex-col sm:flex-row flex-wrap gap-2.5 sm:gap-3 md:gap-4 lg:gap-5 justify-center px-4"
             >
               <Link href="/love-message" className="w-full sm:w-auto">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="btn-primary text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 w-full sm:w-auto"
+                  className="btn-primary text-sm sm:text-base md:text-lg px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 w-full sm:w-auto min-h-[44px] touch-manipulation"
                 >
                   {t('startNow')}
                 </motion.button>
@@ -129,7 +175,7 @@ export default function Home() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="btn-secondary text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 w-full sm:w-auto"
+                  className="btn-secondary text-sm sm:text-base md:text-lg px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 w-full sm:w-auto min-h-[44px] touch-manipulation"
                 >
                   {t('checkCompatibility')}
                 </motion.button>
@@ -210,7 +256,7 @@ export default function Home() {
             {t('featuresTitle')}
           </motion.h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 lg:gap-8">
             {features.map((feature) => (
               <motion.div
                 key={feature.href}
@@ -322,17 +368,17 @@ export default function Home() {
             >
               💝
             </motion.span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6 font-[family-name:var(--font-display)] text-gray-800 px-2">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold mb-3 sm:mb-4 md:mb-6 font-[family-name:var(--font-display)] text-gray-800 px-2">
               {t('ctaTitle')}
             </h2>
-            <p className="text-base sm:text-lg md:text-xl text-gray-700 mb-6 sm:mb-8 md:mb-10 max-w-2xl mx-auto leading-relaxed px-2">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 mb-5 sm:mb-6 md:mb-8 lg:mb-10 max-w-2xl mx-auto leading-relaxed px-2">
               {t('ctaDescription')}
             </p>
             <Link href="/propose" className="inline-block w-full sm:w-auto">
               <motion.button
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                className="btn-primary text-base sm:text-lg md:text-xl px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 animate-pulse-glow relative overflow-hidden w-full sm:w-auto"
+                className="btn-primary text-sm sm:text-base md:text-lg lg:text-xl px-5 sm:px-6 md:px-8 lg:px-10 py-2.5 sm:py-3 md:py-4 lg:py-5 animate-pulse-glow relative overflow-hidden w-full sm:w-auto min-h-[44px] touch-manipulation"
               >
                 <span className="relative z-10 flex items-center gap-2">
                   {t('ctaButton')}
@@ -354,5 +400,6 @@ export default function Home() {
         </div>
       </section>
     </div>
+    </>
   )
 }

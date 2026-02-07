@@ -7,15 +7,15 @@ export default function LoveMessagePage() {
   const t = useTranslations('loveMessage')
   
   return (
-    <div className="min-h-screen py-8 sm:py-10 md:py-12 px-4 sm:px-6">
+    <div className="min-h-screen py-6 sm:py-8 md:py-10 lg:py-12 px-4 sm:px-6">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-8 sm:mb-10 md:mb-12">
-          <span className="text-4xl sm:text-5xl md:text-6xl block mb-3 sm:mb-4">💌</span>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 font-[family-name:var(--font-display)] px-2">
+        <div className="text-center mb-6 sm:mb-8 md:mb-10 lg:mb-12">
+          <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl block mb-2 sm:mb-3 md:mb-4">💌</span>
+          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-2 sm:mb-3 md:mb-4 font-[family-name:var(--font-display)] px-2 leading-tight">
             <span className="text-gradient">{t('title')}</span>
           </h1>
-          <p className="text-gray-600 text-base sm:text-lg max-w-xl mx-auto px-2">
+          <p className="text-gray-600 text-sm sm:text-base md:text-lg max-w-xl mx-auto px-2">
             {t('description')}
           </p>
         </div>
@@ -24,11 +24,11 @@ export default function LoveMessagePage() {
         <LoveMessageForm />
 
         {/* Tips Section */}
-        <div className="mt-12 sm:mt-14 md:mt-16 text-center">
-          <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-800 font-[family-name:var(--font-display)] px-2">
+        <div className="mt-8 sm:mt-10 md:mt-12 lg:mt-16 text-center">
+          <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-3 sm:mb-4 md:mb-6 text-gray-800 font-[family-name:var(--font-display)] px-2">
             {t('tips.title')}
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
             {[
               { icon: '🌹', title: t('tips.tip1.title'), tip: t('tips.tip1.description') },
               { icon: '✨', title: t('tips.tip2.title'), tip: t('tips.tip2.description') },

@@ -36,6 +36,7 @@ export default function ProposalForm() {
   const [image, setImage] = useState<File | null>(null)
   const [imagePreview, setImagePreview] = useState<string>('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [uploadProgress, setUploadProgress] = useState(0)
   const [createdUrl, setCreatedUrl] = useState('')
   const [error, setError] = useState('')
 
@@ -66,26 +67,72 @@ export default function ProposalForm() {
 
     setIsSubmitting(true)
     setError('')
+    setUploadProgress(0)
 
     try {
-      const slug = generateSlug(yourName, partnerName)
+      // Generate slug and check for collisions
+      let slug = generateSlug(yourName, partnerName)
+      let attempts = 0
+      const maxAttempts = 5
+      
+      while (attempts < maxAttempts) {
+        const { data: existing } = await supabase
+          .from('proposals')
+          .select('id')
+          .eq('slug', slug)
+          .single()
+        
+        if (!existing) {
+          break // Slug is available
+        }
+        
+        // Generate new slug with different timestamp
+        slug = generateSlug(yourName, partnerName)
+        attempts++
+      }
+      
+      if (attempts >= maxAttempts) {
+        throw new Error('Unable to generate unique slug. Please try again.')
+      }
+
       let imageUrl: string | null = null
 
-      // Upload image if provided
+      // Upload image if provided with progress tracking
       if (image) {
         const fileExt = image.name.split('.').pop()
         const fileName = `${slug}.${fileExt}`
+        
+        setUploadProgress(10)
+        
+        // Simulate progress for better UX (Supabase doesn't provide native progress)
+        const progressInterval = setInterval(() => {
+          setUploadProgress(prev => {
+            if (prev >= 90) {
+              clearInterval(progressInterval)
+              return prev
+            }
+            return prev + 10
+          })
+        }, 200)
         
         const { error: uploadError } = await supabase.storage
           .from('proposal-images')
           .upload(fileName, image, { upsert: true })
 
+        clearInterval(progressInterval)
+        setUploadProgress(100)
+
         if (uploadError) {
           console.error('Upload error:', uploadError)
+          setError(t('errors.imageUploadFailed') || 'Failed to upload image. Please try again.')
+          setIsSubmitting(false)
+          return
         } else {
           imageUrl = getImageUrl(fileName)
         }
       }
+
+      setUploadProgress(100)
 
       // Create proposal in database
       const { error: insertError } = await supabase
@@ -108,6 +155,7 @@ export default function ProposalForm() {
     } catch (err) {
       console.error('Error creating proposal:', err)
       setError(t('errors.createFailed'))
+      setUploadProgress(0)
     } finally {
       setIsSubmitting(false)
     }
@@ -176,12 +224,12 @@ export default function ProposalForm() {
           </motion.p>
         </motion.div>
 
-        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center relative z-10 px-2 sm:px-0">
+        <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 md:gap-4 justify-center relative z-10 px-2 sm:px-0">
           <motion.button
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleCopyUrl}
-            className={`btn-primary px-8 py-3 flex items-center gap-2 ${
+            className={`btn-primary px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 flex items-center gap-1.5 sm:gap-2 min-h-[44px] touch-manipulation text-sm sm:text-base ${
               copied ? 'bg-gradient-to-r from-green-500 to-green-600' : ''
             }`}
           >
@@ -207,7 +255,7 @@ export default function ProposalForm() {
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => router.push(createdUrl.replace(window.location.origin, ''))}
-            className="btn-secondary px-8 py-3 flex items-center gap-2"
+            className="btn-secondary px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 flex items-center gap-1.5 sm:gap-2 min-h-[44px] touch-manipulation text-sm sm:text-base"
           >
             <span>👀</span>
             <span>{t('created.preview')}</span>
@@ -240,10 +288,10 @@ export default function ProposalForm() {
       className="glass-card p-6 sm:p-8 md:p-10 space-y-6 sm:space-y-8 max-w-2xl mx-auto"
     >
       {/* Names */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
         <div>
-          <label className="block text-sm sm:text-base font-semibold text-gray-800 mb-2 sm:mb-3 flex items-center gap-2">
-            <span>💫</span>
+          <label className="block text-sm sm:text-base font-semibold text-gray-800 mb-2 sm:mb-3 flex items-center gap-1.5 sm:gap-2">
+            <span className="text-base sm:text-lg">💫</span>
             <span>{t('yourName')}</span>
           </label>
           <input
@@ -253,12 +301,12 @@ export default function ProposalForm() {
             placeholder={t('yourName')}
             maxLength={30}
             required
-            className="input-romantic"
+            className="input-romantic text-base sm:text-lg"
           />
         </div>
         <div>
-          <label className="block text-sm sm:text-base font-semibold text-gray-800 mb-2 sm:mb-3 flex items-center gap-2">
-            <span>💝</span>
+          <label className="block text-sm sm:text-base font-semibold text-gray-800 mb-2 sm:mb-3 flex items-center gap-1.5 sm:gap-2">
+            <span className="text-base sm:text-lg">💝</span>
             <span>{t('partnerName')}</span>
           </label>
           <input
@@ -268,7 +316,7 @@ export default function ProposalForm() {
             placeholder={t('partnerName')}
             maxLength={30}
             required
-            className="input-romantic"
+            className="input-romantic text-base sm:text-lg"
           />
         </div>
       </div>
@@ -296,7 +344,7 @@ export default function ProposalForm() {
           <span>✨</span>
           <span>{t('chooseTheme')}</span>
         </label>
-        <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4">
+        <div className="grid grid-cols-3 gap-2 sm:gap-2.5 md:gap-3 lg:gap-4">
           {themes.map((t) => (
             <motion.button
               key={t.value}
@@ -304,10 +352,10 @@ export default function ProposalForm() {
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => setTheme(t.value)}
-              className={`p-3 sm:p-4 md:p-5 rounded-xl sm:rounded-2xl border-2 transition-all text-center relative overflow-hidden ${
+              className={`p-2.5 sm:p-3 md:p-4 lg:p-5 rounded-xl sm:rounded-2xl border-2 transition-all text-center relative overflow-hidden min-h-[100px] sm:min-h-[120px] md:min-h-[140px] touch-manipulation ${
                 theme === t.value
                   ? 'border-rose-500 bg-gradient-to-br from-rose-50 to-pink-50 shadow-xl'
-                  : 'border-pink-200 bg-white hover:border-pink-400 hover:bg-pink-50/50'
+                  : 'border-pink-200 bg-white hover:border-pink-400 hover:bg-pink-50/50 active:border-pink-400 active:bg-pink-50/50'
               }`}
             >
               {theme === t.value && (
@@ -343,7 +391,7 @@ export default function ProposalForm() {
           />
           <label
             htmlFor="image-upload"
-            className="flex flex-col items-center justify-center w-full h-40 sm:h-48 border-2 border-dashed border-pink-300 rounded-xl sm:rounded-2xl cursor-pointer hover:bg-gradient-to-br hover:from-pink-50 hover:to-rose-50 transition-all duration-300 hover:border-pink-400 group relative overflow-hidden min-h-[160px]"
+            className="flex flex-col items-center justify-center w-full h-36 sm:h-40 md:h-48 border-2 border-dashed border-pink-300 rounded-xl sm:rounded-2xl cursor-pointer hover:bg-gradient-to-br hover:from-pink-50 hover:to-rose-50 active:bg-gradient-to-br active:from-pink-50 active:to-rose-50 transition-all duration-300 hover:border-pink-400 active:border-pink-400 group relative overflow-hidden min-h-[144px] sm:min-h-[160px] touch-manipulation"
           >
             {/* Animated background on hover */}
             <div className="absolute inset-0 bg-gradient-to-br from-pink-100/0 to-rose-100/0 group-hover:from-pink-100/50 group-hover:to-rose-100/50 transition-all duration-300"></div>
@@ -400,13 +448,31 @@ export default function ProposalForm() {
         </motion.div>
       )}
 
+      {/* Upload Progress Indicator */}
+      {isSubmitting && uploadProgress > 0 && uploadProgress < 100 && (
+        <div className="space-y-2">
+          <div className="flex items-center justify-between text-sm text-gray-600">
+            <span>{image ? 'Uploading image...' : 'Creating proposal...'}</span>
+            <span className="font-semibold">{uploadProgress}%</span>
+          </div>
+          <div className="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
+            <motion.div
+              className="h-full bg-gradient-to-r from-rose-500 to-pink-500 rounded-full"
+              initial={{ width: 0 }}
+              animate={{ width: `${uploadProgress}%` }}
+              transition={{ duration: 0.3 }}
+            />
+          </div>
+        </div>
+      )}
+
       {/* Submit Button */}
       <motion.button
         type="submit"
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         disabled={!yourName.trim() || !partnerName.trim() || isSubmitting}
-        className="btn-primary w-full text-base sm:text-lg md:text-xl py-3 sm:py-4 md:py-5 font-semibold"
+        className="btn-primary w-full text-sm sm:text-base md:text-lg lg:text-xl py-2.5 sm:py-3 md:py-4 lg:py-5 font-semibold min-h-[44px] touch-manipulation"
       >
         {isSubmitting ? (
           <span className="flex items-center justify-center gap-2 sm:gap-3">

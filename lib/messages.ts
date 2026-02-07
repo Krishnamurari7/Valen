@@ -29,6 +29,8 @@ export const messageTemplates: MessageTemplate[] = [
   { id: 'r18', mood: 'romantic', template: '{partnerName}, you are the reason I believe in magic. Your love has transformed my world. Enchanted by you, {yourName}', category: 'magic' },
   { id: 'r19', mood: 'romantic', template: 'My angel {partnerName}, heaven must be missing you because you bring paradise to my life every day. Devotedly, {yourName}', category: 'heaven' },
   { id: 'r20', mood: 'romantic', template: '{partnerName}, in the arithmetic of love, one plus one equals everything, and two minus one equals nothing. I need you. - {yourName}', category: 'math' },
+  { id: 'r21', mood: 'romantic', template: 'My {partnerName}, you are the reason I wake up with a smile and go to sleep with gratitude. You are my blessing. Forever, {yourName}', category: 'gratitude' },
+  { id: 'r22', mood: 'romantic', template: '{partnerName}, in a world full of temporary things, you are my forever. I choose you today, tomorrow, and always. - {yourName}', category: 'forever' },
 
   // Cute messages
   { id: 'c1', mood: 'cute', template: 'Hey {partnerName}! 🐻 You\'re the peanut butter to my jelly, and I can\'t imagine my sandwich without you! Hugs, {yourName}', category: 'food' },
@@ -51,6 +53,8 @@ export const messageTemplates: MessageTemplate[] = [
   { id: 'c18', mood: 'cute', template: '{partnerName}! 🎈 You make my heart float like a balloon. Don\'t ever let me come down! - {yourName}', category: 'balloons' },
   { id: 'c19', mood: 'cute', template: 'Hey {partnerName}! 🌻 You\'re my sunshine, my only sunshine. You make me happy when skies are gray! - {yourName}', category: 'flower' },
   { id: 'c20', mood: 'cute', template: '{partnerName}, you\'re like a favorite song - I want to play you on repeat forever! 🎵 - {yourName}', category: 'music' },
+  { id: 'c21', mood: 'cute', template: 'Hey {partnerName}! 🍰 You\'re sweeter than cake, cuter than kittens, and I\'m totally obsessed! - {yourName}', category: 'obsessed' },
+  { id: 'c22', mood: 'cute', template: '{partnerName}! 💫 You make my heart do the happy dance every single day! Keep being amazing! - {yourName}', category: 'dance' },
 
   // Funny messages
   { id: 'f1', mood: 'funny', template: '{partnerName}, I love you more than pizza, and that\'s saying something! 🍕 You\'re my extra cheese. - {yourName}', category: 'pizza' },
@@ -73,6 +77,8 @@ export const messageTemplates: MessageTemplate[] = [
   { id: 'f18', mood: 'funny', template: 'Hey {partnerName}, are you a magician? Because whenever I look at you, everyone else disappears! 🎩✨ - {yourName}', category: 'magic' },
   { id: 'f19', mood: 'funny', template: '{partnerName}, I\'m no photographer, but I can definitely picture us together! 📸 - Your paparazzi, {yourName}', category: 'photo' },
   { id: 'f20', mood: 'funny', template: 'To {partnerName}: You\'re like a dictionary - you add meaning to my life! 📚 (And I need help spelling) - {yourName}', category: 'dictionary' },
+  { id: 'f21', mood: 'funny', template: '{partnerName}, I love you more than my phone battery loves charging! 🔋 (And that\'s saying A LOT) - {yourName}', category: 'battery' },
+  { id: 'f22', mood: 'funny', template: 'Hey {partnerName}! Are you Wi-Fi? Because I\'m feeling a connection! 📶 (And I can\'t get enough of you) - {yourName}', category: 'wifi' },
 
   // Emotional messages
   { id: 'e1', mood: 'emotional', template: 'My dearest {partnerName}, you came into my life and made everything make sense. I cannot imagine a single day without you. With tears of joy, {yourName}', category: 'grateful' },
@@ -95,6 +101,8 @@ export const messageTemplates: MessageTemplate[] = [
   { id: 'e18', mood: 'emotional', template: '{partnerName}, thank you for being patient with me, for understanding me, for loving me unconditionally. I am blessed. - {yourName}', category: 'thanks' },
   { id: 'e19', mood: 'emotional', template: 'My love {partnerName}, words will never be enough to express how much you mean to me. You are my world. Infinitely, {yourName}', category: 'infinite' },
   { id: 'e20', mood: 'emotional', template: '{partnerName}, every tear, every smile, every moment with you has been worth it. I would choose you again and again. - {yourName}', category: 'choice' },
+  { id: 'e21', mood: 'emotional', template: 'My {partnerName}, your love has taught me that the best things in life aren\'t things at all - they\'re moments with you. Gratefully, {yourName}', category: 'moments' },
+  { id: 'e22', mood: 'emotional', template: '{partnerName}, I never knew what completeness felt like until you came into my life. You are my missing piece. - {yourName}', category: 'complete' },
 ]
 
 export function generateMessage(yourName: string, partnerName: string, mood: Mood): string {

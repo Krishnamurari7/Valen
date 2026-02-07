@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import confetti from 'canvas-confetti'
+import Image from 'next/image'
 import { supabase } from '@/lib/supabase'
 import type { Proposal } from '@/lib/database.types'
 import ShareButtons from '@/components/ShareButtons'
@@ -87,6 +88,28 @@ export default function ProposalPage({ params }: { params: Promise<{ slug: strin
         setProposal(data)
         if (data.response) {
           setResponse(data.response as 'yes' | 'no')
+        }
+        
+        // Track view count (increment on each view)
+        if (data.id) {
+          const currentViewCount = data.view_count || 0
+          try {
+            const { error: updateError } = await supabase
+              .from('proposals')
+              .update({ view_count: currentViewCount + 1 })
+              .eq('id', data.id)
+            
+            if (!updateError) {
+              // Update local state with new count
+              setProposal(prev => prev ? { ...prev, view_count: currentViewCount + 1 } : null)
+            } else {
+              console.error('Error updating view count:', updateError)
+              // Non-critical error, continue
+            }
+          } catch (err) {
+            console.error('Error updating view count:', err)
+            // Non-critical error, continue
+          }
         }
       }
       setLoading(false)
@@ -256,12 +279,15 @@ export default function ProposalPage({ params }: { params: Promise<{ slug: strin
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
-            className="mb-4 sm:mb-6"
+            className="mb-4 sm:mb-6 relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 mx-auto"
           >
-            <img
+            <Image
               src={proposal.image_url}
-              alt="Proposal"
-              className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 object-cover rounded-full mx-auto border-4 border-white shadow-xl"
+              alt={`Proposal from ${proposal.your_name} to ${proposal.partner_name}`}
+              fill
+              className="object-cover rounded-full border-4 border-white shadow-xl"
+              sizes="(max-width: 640px) 128px, (max-width: 768px) 160px, 192px"
+              priority
             />
           </motion.div>
         )}
@@ -272,11 +298,11 @@ export default function ProposalPage({ params }: { params: Promise<{ slug: strin
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
         >
-          <h1 className={`text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 font-[family-name:var(--font-display)] bg-gradient-to-r ${theme.gradient} bg-clip-text text-transparent px-2`}>
+          <h1 className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3 md:mb-4 font-[family-name:var(--font-display)] bg-gradient-to-r ${theme.gradient} bg-clip-text text-transparent px-2 leading-tight`}>
             {t('question', { partnerName: proposal.partner_name })}
           </h1>
           
-          <p className="text-gray-600 mb-2 text-sm sm:text-base">
+          <p className="text-gray-600 mb-2 text-xs sm:text-sm md:text-base">
             {t('from')} <span className="font-semibold text-rose-600">{proposal.your_name}</span>
           </p>
 
@@ -285,7 +311,7 @@ export default function ProposalPage({ params }: { params: Promise<{ slug: strin
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
-              className="text-gray-700 italic mt-3 sm:mt-4 mb-4 sm:mb-6 bg-pink-50 rounded-xl p-3 sm:p-4 border border-pink-200 text-sm sm:text-base"
+              className="text-gray-700 italic mt-2 sm:mt-3 md:mt-4 mb-3 sm:mb-4 md:mb-6 bg-pink-50 rounded-xl p-2.5 sm:p-3 md:p-4 border border-pink-200 text-xs sm:text-sm md:text-base leading-relaxed"
             >
               &ldquo;{proposal.message}&rdquo;
             </motion.p>
@@ -299,7 +325,7 @@ export default function ProposalPage({ params }: { params: Promise<{ slug: strin
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
-              className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mt-6 sm:mt-8 relative"
+              className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 md:gap-4 justify-center mt-4 sm:mt-6 md:mt-8 relative"
               style={{ minHeight: '80px' }}
             >
               {/* YES Button */}
@@ -307,7 +333,7 @@ export default function ProposalPage({ params }: { params: Promise<{ slug: strin
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={handleYes}
-                className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-rose-500 to-pink-500 text-white font-bold text-lg sm:text-xl rounded-full shadow-lg shadow-rose-500/40 hover:shadow-xl hover:shadow-rose-500/50 transition-all z-10 min-h-[44px] w-full sm:w-auto"
+                className="px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-gradient-to-r from-rose-500 to-pink-500 text-white font-bold text-base sm:text-lg md:text-xl rounded-full shadow-lg shadow-rose-500/40 hover:shadow-xl hover:shadow-rose-500/50 active:shadow-xl active:shadow-rose-500/50 transition-all z-10 min-h-[48px] sm:min-h-[52px] w-full sm:w-auto touch-manipulation"
               >
                 {t('yesButton')}
               </motion.button>
@@ -326,7 +352,7 @@ export default function ProposalPage({ params }: { params: Promise<{ slug: strin
                 onMouseEnter={handleNoHover}
                 onTouchStart={handleNoHover}
                 onClick={handleNoClick}
-                className="px-6 sm:px-8 py-3 sm:py-4 bg-gray-300 text-gray-700 font-bold text-lg sm:text-xl rounded-full hover:bg-gray-400 transition-colors dodge-button min-h-[44px] w-full sm:w-auto"
+                className="px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-gray-300 text-gray-700 font-bold text-base sm:text-lg md:text-xl rounded-full hover:bg-gray-400 active:bg-gray-400 transition-colors dodge-button min-h-[48px] sm:min-h-[52px] w-full sm:w-auto touch-manipulation"
               >
                 {t('noButton')}
               </motion.button>
@@ -339,7 +365,7 @@ export default function ProposalPage({ params }: { params: Promise<{ slug: strin
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-xs sm:text-sm text-gray-500 mt-3 sm:mt-4 px-2"
+            className="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-3 md:mt-4 px-2 text-center"
           >
             {dodgeCount < 3 && t('dodgeMessages.shy')}
             {dodgeCount >= 3 && dodgeCount < 6 && t('dodgeMessages.comeOn')}
@@ -351,7 +377,7 @@ export default function ProposalPage({ params }: { params: Promise<{ slug: strin
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-xs sm:text-sm text-gray-500 mt-3 sm:mt-4 px-2"
+            className="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-3 md:mt-4 px-2 text-center"
           >
             {t('dodgeMessages.okay')}
           </motion.p>

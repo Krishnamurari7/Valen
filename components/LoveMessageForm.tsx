@@ -1,18 +1,40 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { generateMessage, type Mood } from '@/lib/messages'
 import ShareButtons from './ShareButtons'
 import { useTranslations } from '@/lib/i18n'
+import { useToast } from '@/lib/toast'
+import { ToastContainer } from './Toast'
 
 export default function LoveMessageForm() {
   const t = useTranslations('loveMessage')
+  const { toasts, showToast, removeToast } = useToast()
   const [yourName, setYourName] = useState('')
   const [partnerName, setPartnerName] = useState('')
   const [selectedMood, setSelectedMood] = useState<Mood>('romantic')
   const [generatedMessage, setGeneratedMessage] = useState('')
   const [isGenerating, setIsGenerating] = useState(false)
+
+  // Keyboard shortcuts
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      // Ctrl/Cmd + Enter to generate
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter' && yourName.trim() && partnerName.trim() && !isGenerating) {
+        e.preventDefault()
+        handleGenerate()
+      }
+      // Escape to clear
+      if (e.key === 'Escape' && generatedMessage) {
+        setGeneratedMessage('')
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyPress)
+    return () => window.removeEventListener('keydown', handleKeyPress)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [yourName, partnerName, generatedMessage, isGenerating])
 
   // Ensure translations are loaded
   if (!t || typeof t !== 'function') {
@@ -56,14 +78,16 @@ export default function LoveMessageForm() {
     if (!generatedMessage) return
     try {
       await navigator.clipboard.writeText(generatedMessage)
-      // Visual feedback handled by ShareButtons component
+      showToast(t('copyMessage') + ' ✓', 'success')
     } catch (err) {
       console.error('Failed to copy:', err)
+      showToast('Failed to copy. Please try again.', 'error')
     }
   }
 
   return (
     <div className="max-w-3xl mx-auto">
+      <ToastContainer toasts={toasts} onRemove={removeToast} />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -71,10 +95,10 @@ export default function LoveMessageForm() {
         className="glass-card p-6 sm:p-8 md:p-10 space-y-6 sm:space-y-8"
       >
         {/* Name Inputs */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
           <div>
-            <label className="block text-sm sm:text-base font-semibold text-gray-800 mb-2 sm:mb-3 flex items-center gap-2">
-              <span>💫</span>
+            <label className="block text-sm sm:text-base font-semibold text-gray-800 mb-2 sm:mb-3 flex items-center gap-1.5 sm:gap-2">
+              <span className="text-base sm:text-lg">💫</span>
               <span>{t('yourName')}</span>
             </label>
             <input
@@ -83,12 +107,12 @@ export default function LoveMessageForm() {
               onChange={(e) => setYourName(e.target.value)}
               placeholder={t('yourName')}
               maxLength={30}
-              className="input-romantic"
+              className="input-romantic text-base sm:text-lg"
             />
           </div>
           <div>
-            <label className="block text-sm sm:text-base font-semibold text-gray-800 mb-2 sm:mb-3 flex items-center gap-2">
-              <span>💝</span>
+            <label className="block text-sm sm:text-base font-semibold text-gray-800 mb-2 sm:mb-3 flex items-center gap-1.5 sm:gap-2">
+              <span className="text-base sm:text-lg">💝</span>
               <span>{t('partnerName')}</span>
             </label>
             <input
@@ -97,7 +121,7 @@ export default function LoveMessageForm() {
               onChange={(e) => setPartnerName(e.target.value)}
               placeholder={t('partnerName')}
               maxLength={30}
-              className="input-romantic"
+              className="input-romantic text-base sm:text-lg"
             />
           </div>
         </div>
@@ -108,17 +132,17 @@ export default function LoveMessageForm() {
             <span>✨</span>
             <span>{t('selectMood')}</span>
           </label>
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 md:gap-4">
             {moods.map((mood) => (
               <motion.button
                 key={mood.value}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => setSelectedMood(mood.value)}
-                className={`p-3 sm:p-4 md:p-5 rounded-xl sm:rounded-2xl border-2 transition-all relative overflow-hidden ${
+                className={`p-2.5 sm:p-3 md:p-4 lg:p-5 rounded-xl sm:rounded-2xl border-2 transition-all relative overflow-hidden min-h-[80px] sm:min-h-[100px] md:min-h-[120px] touch-manipulation ${
                   selectedMood === mood.value
                     ? `border-rose-500 bg-gradient-to-br ${mood.color} text-white shadow-xl`
-                    : 'border-pink-200 bg-white hover:border-pink-400 hover:bg-pink-50/50'
+                    : 'border-pink-200 bg-white hover:border-pink-400 hover:bg-pink-50/50 active:border-pink-400 active:bg-pink-50/50'
                 }`}
               >
                 {selectedMood === mood.value && (
@@ -139,13 +163,20 @@ export default function LoveMessageForm() {
           </div>
         </div>
 
+        {/* Keyboard Shortcut Hint */}
+        {yourName.trim() && partnerName.trim() && (
+          <p className="text-xs text-gray-500 text-center mb-2">
+            💡 Tip: Press <kbd className="px-2 py-1 bg-gray-100 rounded text-xs font-mono">Ctrl/Cmd + Enter</kbd> to generate
+          </p>
+        )}
+
         {/* Generate Button */}
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={handleGenerate}
           disabled={!yourName.trim() || !partnerName.trim() || isGenerating}
-          className="btn-primary w-full text-base sm:text-lg md:text-xl py-3 sm:py-4 md:py-5 font-semibold"
+          className="btn-primary w-full text-sm sm:text-base md:text-lg lg:text-xl py-2.5 sm:py-3 md:py-4 lg:py-5 font-semibold min-h-[44px] touch-manipulation"
         >
           {isGenerating ? (
             <span className="flex items-center justify-center gap-2 sm:gap-3">
@@ -230,13 +261,13 @@ export default function LoveMessageForm() {
               </motion.div>
 
               {/* Action Buttons */}
-              <div className="space-y-3 sm:space-y-4 relative z-10">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+              <div className="space-y-2.5 sm:space-y-3 md:space-y-4 relative z-10">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 md:gap-4">
                   <motion.button
                     whileHover={{ scale: 1.02, y: -2 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleRegenerate}
-                    className="btn-secondary w-full py-3 sm:py-4 text-sm sm:text-base md:text-lg font-semibold flex items-center justify-center gap-2"
+                    className="btn-secondary w-full py-2.5 sm:py-3 md:py-4 text-sm sm:text-base md:text-lg font-semibold flex items-center justify-center gap-1.5 sm:gap-2 min-h-[44px] touch-manipulation"
                   >
                     <motion.span
                       animate={{ rotate: [0, 360] }}
@@ -251,7 +282,7 @@ export default function LoveMessageForm() {
                     whileHover={{ scale: 1.02, y: -2 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleCopy}
-                    className="btn-primary w-full py-3 sm:py-4 text-sm sm:text-base md:text-lg font-semibold flex items-center justify-center gap-2"
+                    className="btn-primary w-full py-2.5 sm:py-3 md:py-4 text-sm sm:text-base md:text-lg font-semibold flex items-center justify-center gap-1.5 sm:gap-2 min-h-[44px] touch-manipulation"
                   >
                     📋 {t('copyMessage')}
                   </motion.button>

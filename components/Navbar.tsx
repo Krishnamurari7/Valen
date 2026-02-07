@@ -56,9 +56,9 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 relative z-10">
         <div className="flex items-center justify-between h-14 sm:h-16 md:h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 sm:gap-3 group relative">
+          <Link href="/" className="flex items-center gap-1.5 sm:gap-2 md:gap-3 group relative min-h-[44px] touch-manipulation">
             <motion.span 
-              className="text-2xl sm:text-3xl md:text-4xl filter drop-shadow-md relative z-10"
+              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl filter drop-shadow-md relative z-10"
               animate={{ 
                 scale: [1, 1.15, 1],
                 rotate: [0, 5, -5, 0]
@@ -68,7 +68,7 @@ export default function Navbar() {
               💝
             </motion.span>
             <motion.span 
-              className="text-lg sm:text-xl md:text-2xl font-bold text-gradient font-[family-name:var(--font-display)] relative z-10"
+              className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gradient font-[family-name:var(--font-display)] relative z-10"
               whileHover={{ scale: 1.05 }}
               transition={{ type: 'spring', stiffness: 400 }}
             >
@@ -106,12 +106,13 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Menu Button & Language Switcher */}
-          <div className="md:hidden flex items-center gap-2">
+          <div className="md:hidden flex items-center gap-1.5 sm:gap-2">
             <LanguageSwitcher />
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 sm:p-2.5 rounded-xl hover:bg-gradient-to-r hover:from-rose-50 hover:to-pink-50 transition-all duration-300 relative min-w-[44px] min-h-[44px] flex items-center justify-center"
+              className="p-2 sm:p-2.5 rounded-xl hover:bg-gradient-to-r hover:from-rose-50 hover:to-pink-50 active:bg-gradient-to-r active:from-rose-50 active:to-pink-50 transition-all duration-300 relative min-w-[44px] min-h-[44px] flex items-center justify-center touch-manipulation"
               aria-label="Toggle menu"
+              type="button"
             >
             <motion.div
               animate={isOpen ? 'open' : 'closed'}
@@ -165,7 +166,7 @@ export default function Navbar() {
                   <Link
                     href={link.href}
                     onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-3 px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl text-gray-700 hover:text-rose-600 hover:bg-gradient-to-r hover:from-rose-50 hover:to-pink-50 transition-all duration-300 font-medium group min-h-[44px]"
+                    className="flex items-center gap-3 px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl text-gray-700 hover:text-rose-600 active:text-rose-600 hover:bg-gradient-to-r hover:from-rose-50 hover:to-pink-50 active:bg-gradient-to-r active:from-rose-50 active:to-pink-50 transition-all duration-300 font-medium group min-h-[44px] touch-manipulation text-sm sm:text-base"
                   >
                     <motion.span 
                       className="text-xl"
