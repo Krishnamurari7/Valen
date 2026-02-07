@@ -146,13 +146,13 @@ export default function Footer() {
                 <span>CodeHub Pro</span>
               </motion.a>
               <motion.a
-                href={`tel:7488684917`}
+                href={`tel:7209766715`}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 className="inline-flex items-center gap-2 text-sm sm:text-base px-4 py-2 rounded-lg bg-gradient-to-r from-green-500 to-emerald-600 text-white font-medium hover:shadow-lg transition-all duration-300 min-h-[44px] touch-manipulation"
               >
                 <span>📞</span>
-                <span>7488684917</span>
+                <span>7209766715</span>
               </motion.a>
             </div>
           </div>

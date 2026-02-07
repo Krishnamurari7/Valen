@@ -466,13 +466,13 @@ export default function Home() {
                 </motion.a>
                 
                 <motion.a
-                  href={`tel:7488684917`}
+                  href={`tel:7209766715`}
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   className="btn-secondary text-sm sm:text-base md:text-lg px-6 sm:px-8 md:px-10 py-3 sm:py-4 min-h-[44px] touch-manipulation flex items-center gap-2"
                 >
                   <span>📞</span>
-                  <span>{tPromo('callUs')}: 7488684917</span>
+                  <span>{tPromo('callUs')}: 7209766715</span>
                 </motion.a>
               </div>
               

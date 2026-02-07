@@ -42,7 +42,7 @@ export default function PromotionBanner({ variant = 'compact', className = '' }:
               <span className="hidden sm:inline">Visit</span>
             </motion.a>
             <motion.a
-              href="tel:7488684917"
+              href="tel:7209766715"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm rounded-lg bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold hover:shadow-lg transition-all duration-300 min-h-[40px] sm:min-h-[44px] flex items-center justify-center gap-2 touch-manipulation whitespace-nowrap flex-1 sm:flex-initial"
@@ -96,13 +96,13 @@ export default function PromotionBanner({ variant = 'compact', className = '' }:
             <span>{t('visitWebsite')}</span>
           </motion.a>
           <motion.a
-            href="tel:7488684917"
+            href="tel:7209766715"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
             className="px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 rounded-lg bg-gradient-to-r from-green-500 to-emerald-600 text-white font-medium hover:shadow-xl transition-all duration-300 min-h-[44px] flex items-center gap-2 touch-manipulation text-sm sm:text-base"
           >
             <span>📞</span>
-            <span>{t('callUs')}: 7488684917</span>
+            <span>{t('callUs')}: 7209766715</span>
           </motion.a>
         </div>
       </div>
