@@ -1,6 +1,7 @@
 'use client'
 
 import CompatibilityForm from '@/components/CompatibilityForm'
+import PromotionBanner from '@/components/PromotionBanner'
 import { useTranslations } from '@/lib/i18n'
 
 export default function CompatibilityPage() {
@@ -22,6 +23,11 @@ export default function CompatibilityPage() {
 
         {/* Form */}
         <CompatibilityForm />
+
+        {/* Promotion Banner */}
+        <div className="mt-8 sm:mt-10 md:mt-12">
+          <PromotionBanner variant="full" />
+        </div>
 
         {/* Info Cards */}
         <div className="mt-8 sm:mt-10 md:mt-12 lg:mt-16 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-6">

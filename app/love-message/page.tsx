@@ -1,6 +1,7 @@
 'use client'
 
 import LoveMessageForm from '@/components/LoveMessageForm'
+import PromotionBanner from '@/components/PromotionBanner'
 import { useTranslations } from '@/lib/i18n'
 
 export default function LoveMessagePage() {
@@ -22,6 +23,11 @@ export default function LoveMessagePage() {
 
         {/* Form */}
         <LoveMessageForm />
+
+        {/* Promotion Banner */}
+        <div className="mt-8 sm:mt-10 md:mt-12">
+          <PromotionBanner variant="full" />
+        </div>
 
         {/* Tips Section */}
         <div className="mt-8 sm:mt-10 md:mt-12 lg:mt-16 text-center">

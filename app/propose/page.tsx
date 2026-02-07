@@ -1,6 +1,7 @@
 'use client'
 
 import ProposalForm from '@/components/ProposalForm'
+import PromotionBanner from '@/components/PromotionBanner'
 import { useTranslations } from '@/lib/i18n'
 
 export default function ProposePage() {
@@ -22,6 +23,11 @@ export default function ProposePage() {
 
         {/* Form */}
         <ProposalForm />
+
+        {/* Promotion Banner */}
+        <div className="mt-8 sm:mt-10 md:mt-12">
+          <PromotionBanner variant="full" />
+        </div>
 
         {/* How it Works */}
         <div className="mt-8 sm:mt-10 md:mt-12 lg:mt-16">

@@ -5,6 +5,7 @@ import { useState, useEffect, useLayoutEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslations } from '@/lib/i18n'
 import LanguageSwitcher from './LanguageSwitcher'
+import PromotionBanner from './PromotionBanner'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -49,11 +50,17 @@ export default function Navbar() {
   ]
 
   return (
-    <nav ref={navRef} className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl border-b border-pink-100/50 shadow-sm relative">
-      {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-rose-50/30 via-transparent to-pink-50/30 pointer-events-none"></div>
-      
-      <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 relative z-10">
+    <>
+      <nav ref={navRef} className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl border-b border-pink-100/50 shadow-sm relative">
+        {/* Subtle gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-rose-50/30 via-transparent to-pink-50/30 pointer-events-none"></div>
+        
+        {/* Promotion Banner at Top */}
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 relative z-10 pt-2 sm:pt-2.5 pb-1 sm:pb-1.5">
+          <PromotionBanner variant="compact" />
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 relative z-10">
         <div className="flex items-center justify-between h-14 sm:h-16 md:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-1.5 sm:gap-2 md:gap-3 group relative min-h-[44px] touch-manipulation">
@@ -183,5 +190,6 @@ export default function Navbar() {
         )}
       </AnimatePresence>
     </nav>
+    </>
   )
 }

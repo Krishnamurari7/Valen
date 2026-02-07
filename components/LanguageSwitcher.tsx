@@ -63,21 +63,25 @@ export default function LanguageSwitcher() {
 
   const currentLanguage = languages.find(lang => lang.code === locale) || languages[0]
 
+  if (!currentLanguage) {
+    return null
+  }
+
   return (
-    <div ref={containerRef} className="relative z-[60]">
+    <div ref={containerRef} className="relative z-[60] inline-flex">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-2 rounded-full bg-white/80 hover:bg-white border border-pink-200 hover:border-pink-400 transition-all duration-300 text-xs sm:text-sm font-medium text-gray-700 min-h-[44px] min-w-[44px] cursor-pointer touch-manipulation"
+        className="flex items-center justify-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-2 rounded-full bg-white/90 hover:bg-white border-2 border-pink-300 hover:border-pink-400 transition-all duration-300 text-xs sm:text-sm font-medium text-gray-700 h-[44px] min-w-[44px] cursor-pointer touch-manipulation flex-shrink-0 shadow-sm hover:shadow-md relative z-[100]" 
         aria-label="Change language"
         aria-expanded={isOpen}
         type="button"
       >
-        <span className="text-base sm:text-lg">{currentLanguage.flag}</span>
-        <span className="hidden sm:inline">{currentLanguage.name}</span>
+        <span className="text-lg sm:text-xl flex-shrink-0 leading-none">{currentLanguage.flag}</span>
+        <span className="hidden sm:inline whitespace-nowrap">{currentLanguage.name}</span>
         <motion.span
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.2 }}
-          className="text-[10px] sm:text-xs"
+          className="text-[10px] sm:text-xs flex-shrink-0 ml-0.5"
         >
           ▼
         </motion.span>
@@ -89,7 +93,13 @@ export default function LanguageSwitcher() {
             initial={{ opacity: 0, y: -10, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
-            className="absolute top-full right-0 mt-2 bg-white rounded-xl shadow-lg border border-pink-200 overflow-hidden z-[101] min-w-[140px] sm:min-w-[160px] w-max"
+            className="absolute top-full right-0 mt-2 bg-white rounded-xl shadow-2xl border-2 border-pink-200 overflow-hidden min-w-[140px] sm:min-w-[160px] w-max whitespace-nowrap z-[9999]"
+            style={{ 
+              position: 'absolute', 
+              zIndex: 9999, 
+              backgroundColor: 'white',
+              isolation: 'isolate'
+            }}
           >
             {languages.map((lang) => (
               <button

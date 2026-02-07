@@ -4,9 +4,25 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useTranslations } from '@/lib/i18n'
 import Script from 'next/script'
+import { useState, useEffect } from 'react'
 
 export default function Home() {
   const t = useTranslations('home')
+  const tPromo = useTranslations('promotion')
+  const [mounted, setMounted] = useState(false)
+  const [sparkles, setSparkles] = useState<Array<{left: number, top: number, duration: number, delay: number}>>([])
+  
+  useEffect(() => {
+    setMounted(true)
+    // Generate sparkle positions only on client to avoid hydration mismatch
+    const sparkleData = [...Array(20)].map(() => ({
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      duration: 2 + Math.random() * 2,
+      delay: Math.random() * 2,
+    }))
+    setSparkles(sparkleData)
+  }, [])
   
   const baseUrl = 'https://dripxthing.in'
   
@@ -83,28 +99,30 @@ export default function Home() {
       <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative py-8 sm:py-12 md:py-16 lg:py-24 xl:py-32 px-4 sm:px-6 overflow-hidden">
-        {/* Sparkle effect */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-          {[...Array(20)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-1 h-1 bg-rose-400 rounded-full"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-              }}
-              animate={{
-                opacity: [0, 1, 0],
-                scale: [0, 1, 0],
-              }}
-              transition={{
-                duration: 2 + Math.random() * 2,
-                repeat: Infinity,
-                delay: Math.random() * 2,
-              }}
-            />
-          ))}
-        </div>
+        {/* Sparkle effect - only render on client to avoid hydration mismatch */}
+        {mounted && sparkles.length > 0 && (
+          <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+            {sparkles.map((sparkle, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-1 h-1 bg-rose-400 rounded-full"
+                style={{
+                  left: `${sparkle.left}%`,
+                  top: `${sparkle.top}%`,
+                }}
+                animate={{
+                  opacity: [0, 1, 0],
+                  scale: [0, 1, 0],
+                }}
+                transition={{
+                  duration: sparkle.duration,
+                  repeat: Infinity,
+                  delay: sparkle.delay,
+                }}
+              />
+            ))}
+          </div>
+        )}
         
         <div className="max-w-5xl mx-auto text-center relative z-10">
           <motion.div
@@ -427,11 +445,11 @@ export default function Home() {
               </motion.div>
               
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4 sm:mb-6 font-[family-name:var(--font-display)] bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-                {t('promotion.title')}
+                {tPromo('title')}
               </h2>
               
               <p className="text-base sm:text-lg md:text-xl text-gray-700 text-center mb-6 sm:mb-8 leading-relaxed max-w-3xl mx-auto">
-                {t('promotion.description')}
+                {tPromo('description')}
               </p>
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-6 sm:mb-8">
@@ -444,7 +462,7 @@ export default function Home() {
                   className="btn-primary text-sm sm:text-base md:text-lg px-6 sm:px-8 md:px-10 py-3 sm:py-4 min-h-[44px] touch-manipulation flex items-center gap-2"
                 >
                   <span>🌐</span>
-                  <span>{t('promotion.visitWebsite')}</span>
+                  <span>{tPromo('visitWebsite')}</span>
                 </motion.a>
                 
                 <motion.a
@@ -454,7 +472,7 @@ export default function Home() {
                   className="btn-secondary text-sm sm:text-base md:text-lg px-6 sm:px-8 md:px-10 py-3 sm:py-4 min-h-[44px] touch-manipulation flex items-center gap-2"
                 >
                   <span>📞</span>
-                  <span>{t('promotion.callUs')}: 7488684917</span>
+                  <span>{tPromo('callUs')}: 7488684917</span>
                 </motion.a>
               </div>
               
@@ -467,7 +485,7 @@ export default function Home() {
                   className="p-4 rounded-xl bg-gradient-to-br from-blue-50 to-blue-100/50"
                 >
                   <div className="text-3xl mb-2">💻</div>
-                  <div className="text-sm sm:text-base font-semibold text-gray-800">{t('promotion.feature1')}</div>
+                  <div className="text-sm sm:text-base font-semibold text-gray-800">{tPromo('feature1')}</div>
                 </motion.div>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -477,7 +495,7 @@ export default function Home() {
                   className="p-4 rounded-xl bg-gradient-to-br from-purple-50 to-purple-100/50"
                 >
                   <div className="text-3xl mb-2">🎨</div>
-                  <div className="text-sm sm:text-base font-semibold text-gray-800">{t('promotion.feature2')}</div>
+                  <div className="text-sm sm:text-base font-semibold text-gray-800">{tPromo('feature2')}</div>
                 </motion.div>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -487,7 +505,7 @@ export default function Home() {
                   className="p-4 rounded-xl bg-gradient-to-br from-pink-50 to-pink-100/50"
                 >
                   <div className="text-3xl mb-2">⚡</div>
-                  <div className="text-sm sm:text-base font-semibold text-gray-800">{t('promotion.feature3')}</div>
+                  <div className="text-sm sm:text-base font-semibold text-gray-800">{tPromo('feature3')}</div>
                 </motion.div>
               </div>
             </div>

@@ -215,13 +215,16 @@
   },
   "promotion": {
     "title": "Need a Website Like This?",
-    "description": "Get professional, modern, and beautiful websites developed by CodeHub Pro. We create stunning web experiences that your users will love!",
-    "visitWebsite": "Visit CodeHub Pro",
+    "description": "Get professional, modern, and beautiful websites developed by CodeHub Pro. We create stunning web experiences that your users will love! Transform your business with cutting-edge design and seamless functionality.",
+    "visitWebsite": "Visit Website",
     "callUs": "Call Us",
     "feature1": "Modern Design",
     "feature2": "Fast & Responsive",
     "feature3": "SEO Optimized",
     "footerTitle": "Website Development",
-    "footerDescription": "Get your dream website built by professionals. Modern, fast, and beautiful!"
+    "footerDescription": "Get your dream website built by professionals. Modern, fast, and beautiful!",
+    "compactText": "Need a professional website? Get it built by CodeHub Pro!",
+    "bannerTitle": "Get Your Website Built by Professionals",
+    "bannerDescription": "Love this website? We can create something amazing for you too! Professional, modern, and beautiful websites at CodeHub Pro."
   }
 }

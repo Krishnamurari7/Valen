@@ -240,7 +240,7 @@ export default function ProposalPage({ params }: { params: Promise<{ slug: strin
   return (
     <div 
       ref={containerRef}
-      className={`min-h-screen bg-gradient-to-br ${theme.bgGradient} flex items-center justify-center px-4 py-8 sm:py-12 overflow-hidden`}
+      className={`min-h-screen bg-gradient-to-br ${theme.bgGradient} flex items-center justify-center px-4 py-8 sm:py-12 overflow-x-hidden overflow-y-auto`}
     >
       {/* Floating Particles */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
@@ -272,6 +272,7 @@ export default function ProposalPage({ params }: { params: Promise<{ slug: strin
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         className="glass-card p-6 sm:p-8 max-w-lg w-full text-center relative z-10 mx-2 sm:mx-0"
+        style={{ overflow: 'visible' }}
       >
         {/* Image */}
         {proposal.image_url && (
@@ -325,8 +326,8 @@ export default function ProposalPage({ params }: { params: Promise<{ slug: strin
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
-              className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 md:gap-4 justify-center mt-4 sm:mt-6 md:mt-8 relative"
-              style={{ minHeight: '80px' }}
+              className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 md:gap-4 justify-center mt-4 sm:mt-6 md:mt-8 relative overflow-visible"
+              style={{ minHeight: '120px', paddingBottom: '20px' }}
             >
               {/* YES Button */}
               <motion.button

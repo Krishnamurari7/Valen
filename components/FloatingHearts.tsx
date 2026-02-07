@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useState } from 'react'
 
 interface Heart {
   id: number
@@ -12,7 +12,12 @@ interface Heart {
 }
 
 export default function FloatingHearts() {
-  const hearts = useMemo(() => {
+  const [hearts, setHearts] = useState<Heart[]>([])
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    // Only generate hearts on client side to avoid hydration mismatch
+    setMounted(true)
     const emojis = ['❤️', '💕', '💖', '💗', '💝', '🌹', '✨']
     const newHearts: Heart[] = []
     
@@ -28,8 +33,13 @@ export default function FloatingHearts() {
       })
     }
     
-    return newHearts
+    setHearts(newHearts)
   }, [])
+
+  // Don't render until mounted on client to avoid hydration mismatch
+  if (!mounted) {
+    return <div className="floating-hearts" />
+  }
 
   return (
     <div className="floating-hearts">

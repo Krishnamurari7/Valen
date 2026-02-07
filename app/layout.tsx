@@ -175,7 +175,7 @@ export default async function RootLayout({
       <body className="antialiased min-h-screen flex flex-col">
         <FloatingHearts />
         <Navbar />
-        <main className="flex-grow pt-14 sm:pt-16 md:pt-20 relative z-10">
+        <main className="flex-grow pt-36 sm:pt-40 md:pt-44 relative z-10">
           {children}
         </main>
         <Footer />
