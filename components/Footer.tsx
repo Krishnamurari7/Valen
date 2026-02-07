@@ -125,6 +125,36 @@ export default function Footer() {
               </motion.a>
             </div>
           </div>
+
+          {/* Web Development Promotion */}
+          <div className="sm:col-span-2 lg:col-span-1">
+            <h3 className="font-bold text-gray-800 mb-3 sm:mb-4 text-base sm:text-lg">{t('promotion.footerTitle')}</h3>
+            <p className="text-gray-700 text-sm sm:text-base mb-3 sm:mb-4 leading-relaxed">
+              {t('promotion.footerDescription')}
+            </p>
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
+              <motion.a
+                href="https://codehubpro.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-flex items-center gap-2 text-sm sm:text-base px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium hover:shadow-lg transition-all duration-300 min-h-[44px] touch-manipulation"
+              >
+                <span>🌐</span>
+                <span>CodeHub Pro</span>
+              </motion.a>
+              <motion.a
+                href={`tel:7488684917`}
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-flex items-center gap-2 text-sm sm:text-base px-4 py-2 rounded-lg bg-gradient-to-r from-green-500 to-emerald-600 text-white font-medium hover:shadow-lg transition-all duration-300 min-h-[44px] touch-manipulation"
+              >
+                <span>📞</span>
+                <span>7488684917</span>
+              </motion.a>
+            </div>
+          </div>
         </div>
 
         <motion.div

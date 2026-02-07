@@ -399,6 +399,101 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+
+      {/* Web Development Promotion Section */}
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10"></div>
+        <div className="max-w-5xl mx-auto relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="glass-card p-6 sm:p-8 md:p-10 lg:p-12 relative overflow-hidden"
+          >
+            {/* Decorative background elements */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 w-40 h-40 bg-gradient-to-tr from-pink-400/20 to-rose-400/20 rounded-full blur-3xl"></div>
+            
+            <div className="relative z-10">
+              <motion.div
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
+                className="text-center mb-6"
+              >
+                <span className="text-5xl sm:text-6xl md:text-7xl block mb-4">🚀</span>
+              </motion.div>
+              
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4 sm:mb-6 font-[family-name:var(--font-display)] bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                {t('promotion.title')}
+              </h2>
+              
+              <p className="text-base sm:text-lg md:text-xl text-gray-700 text-center mb-6 sm:mb-8 leading-relaxed max-w-3xl mx-auto">
+                {t('promotion.description')}
+              </p>
+              
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-6 sm:mb-8">
+                <motion.a
+                  href="https://codehubpro.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="btn-primary text-sm sm:text-base md:text-lg px-6 sm:px-8 md:px-10 py-3 sm:py-4 min-h-[44px] touch-manipulation flex items-center gap-2"
+                >
+                  <span>🌐</span>
+                  <span>{t('promotion.visitWebsite')}</span>
+                </motion.a>
+                
+                <motion.a
+                  href={`tel:7488684917`}
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="btn-secondary text-sm sm:text-base md:text-lg px-6 sm:px-8 md:px-10 py-3 sm:py-4 min-h-[44px] touch-manipulation flex items-center gap-2"
+                >
+                  <span>📞</span>
+                  <span>{t('promotion.callUs')}: 7488684917</span>
+                </motion.a>
+              </div>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 text-center">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 }}
+                  className="p-4 rounded-xl bg-gradient-to-br from-blue-50 to-blue-100/50"
+                >
+                  <div className="text-3xl mb-2">💻</div>
+                  <div className="text-sm sm:text-base font-semibold text-gray-800">{t('promotion.feature1')}</div>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.4 }}
+                  className="p-4 rounded-xl bg-gradient-to-br from-purple-50 to-purple-100/50"
+                >
+                  <div className="text-3xl mb-2">🎨</div>
+                  <div className="text-sm sm:text-base font-semibold text-gray-800">{t('promotion.feature2')}</div>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.5 }}
+                  className="p-4 rounded-xl bg-gradient-to-br from-pink-50 to-pink-100/50"
+                >
+                  <div className="text-3xl mb-2">⚡</div>
+                  <div className="text-sm sm:text-base font-semibold text-gray-800">{t('promotion.feature3')}</div>
+                </motion.div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
     </div>
     </>
   )

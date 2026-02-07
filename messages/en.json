@@ -212,5 +212,16 @@
     "shareLove": "Share the Love",
     "madeWith": "Made with 💖 for Valentine's Day 2026",
     "copyright": "© 2026 Valentine All-in-One. Spread love, not hate. 💕"
+  },
+  "promotion": {
+    "title": "Need a Website Like This?",
+    "description": "Get professional, modern, and beautiful websites developed by CodeHub Pro. We create stunning web experiences that your users will love!",
+    "visitWebsite": "Visit CodeHub Pro",
+    "callUs": "Call Us",
+    "feature1": "Modern Design",
+    "feature2": "Fast & Responsive",
+    "feature3": "SEO Optimized",
+    "footerTitle": "Website Development",
+    "footerDescription": "Get your dream website built by professionals. Modern, fast, and beautiful!"
   }
 }
